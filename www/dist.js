@@ -47678,74 +47678,41 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
-var index = 0;
 var MyPage = React.createClass({
   displayName: 'MyPage',
-
-  renderToolbar: function renderToolbar(route, navigator) {
-    var backButton = route.hasBackButton ? React.createElement(
-      Ons.BackButton,
-      { onClick: this.handleClick.bind(this, navigator) },
-      'Back'
-    ) : null;
-
+  renderToolbar: function renderToolbar() {
     return React.createElement(
       Ons.Toolbar,
       null,
       React.createElement(
         'div',
-        { className: 'left' },
-        backButton
-      ),
-      React.createElement(
-        'div',
         { className: 'center' },
-        route.title
+        'Infinite scroll'
       )
     );
   },
 
-  handleClick: function handleClick(navigator) {
-    ons.notification.confirm('Do you really want to go back?').then(function (response) {
-      if (response === 1) {
-        navigator.popPage();
-      }
-    });
-  },
 
-  pushPage: function pushPage(navigator) {
-    navigator.pushPage({
-      title: 'Another page ' + index,
-      hasBackButton: true
-    });
-
-    index++;
-  },
-
-  renderPage: function renderPage(route, navigator) {
+  renderRow: function renderRow(index) {
     return React.createElement(
-      Ons.Page,
-      { key: route.title, renderToolbar: this.renderToolbar.bind(this, route, navigator) },
-      React.createElement(
-        'section',
-        { style: { margin: '16px', textAlign: 'center' } },
-        React.createElement(
-          Ons.Button,
-          { onClick: this.pushPage.bind(this, navigator) },
-          'Push Page'
-        )
-      )
+      Ons.ListItem,
+      { key: index },
+      'Item ' + (index + 1)
     );
   },
 
   render: function render() {
-    return React.createElement(Ons.Navigator, {
-      renderPage: this.renderPage,
-      initialRoute: {
-        title: 'First page',
-        hasBackButton: false
-      }
-    });
+    return React.createElement(
+      Ons.Page,
+      { renderToolbar: this.renderToolbar },
+      React.createElement(Ons.LazyList, {
+        length: 10000,
+        renderRow: this.renderRow,
+        calculateItemHeight: function calculateItemHeight() {
+          return ons.platform.isAndroid() ? 48 : 44;
+        }
+      })
+    );
   }
 });
 
