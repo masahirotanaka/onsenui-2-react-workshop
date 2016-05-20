@@ -19495,19 +19495,35 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Hello = React.createClass({
-  displayName: 'Hello',
-
+var Counter = React.createClass({
+  displayName: 'Counter',
+  getInitialState: function getInitialState() {
+    return {
+      counter: 0
+    };
+  },
+  onClick: function onClick() {
+    var newState = { counter: this.state.counter + 1 };
+    this.setState(newState);
+  },
   render: function render() {
     return React.createElement(
       'div',
-      { className: 'container' },
-      'Hello ',
-      this.props.name
+      null,
+      React.createElement(
+        'span',
+        null,
+        this.state.counter
+      ),
+      React.createElement(
+        'button',
+        { onClick: this.onClick },
+        'click'
+      )
     );
   }
 });
 
-ReactDOM.render(React.createElement(Hello, { name: 'React' }), document.getElementById("app"));
+ReactDOM.render(React.createElement(Counter, null), document.getElementById("app"));
 
 },{"react":167,"react-dom":2}]},{},[168]);
