@@ -47678,31 +47678,74 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
+var index = 0;
 var MyPage = React.createClass({
   displayName: 'MyPage',
 
-  renderToolbar: function renderToolbar() {
+  renderToolbar: function renderToolbar(route, navigator) {
+    var backButton = route.hasBackButton ? React.createElement(
+      Ons.BackButton,
+      { onClick: this.handleClick.bind(this, navigator) },
+      'Back'
+    ) : null;
+
     return React.createElement(
       Ons.Toolbar,
       null,
       React.createElement(
         'div',
+        { className: 'left' },
+        backButton
+      ),
+      React.createElement(
+        'div',
         { className: 'center' },
-        'Page'
+        route.title
+      )
+    );
+  },
+
+  handleClick: function handleClick(navigator) {
+    ons.notification.confirm('Do you really want to go back?').then(function (response) {
+      if (response === 1) {
+        navigator.popPage();
+      }
+    });
+  },
+
+  pushPage: function pushPage(navigator) {
+    navigator.pushPage({
+      title: 'Another page ' + index,
+      hasBackButton: true
+    });
+
+    index++;
+  },
+
+  renderPage: function renderPage(route, navigator) {
+    return React.createElement(
+      Ons.Page,
+      { key: route.title, renderToolbar: this.renderToolbar.bind(this, route, navigator) },
+      React.createElement(
+        'section',
+        { style: { margin: '16px', textAlign: 'center' } },
+        React.createElement(
+          Ons.Button,
+          { onClick: this.pushPage.bind(this, navigator) },
+          'Push Page'
+        )
       )
     );
   },
 
   render: function render() {
-    return React.createElement(
-      Ons.Page,
-      { renderToolbar: this.renderToolbar },
-      React.createElement(
-        'section',
-        { style: { margin: '16px' } },
-        'This is a page'
-      )
-    );
+    return React.createElement(Ons.Navigator, {
+      renderPage: this.renderPage,
+      initialRoute: {
+        title: 'First page',
+        hasBackButton: false
+      }
+    });
   }
 });
 
