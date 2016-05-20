@@ -47673,34 +47673,56 @@ module.exports = require('./lib/React');
 },{"./lib/React":30}],170:[function(require,module,exports){
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ons = require('onsenui');
-var Ons = require('react-onsenui');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var App = React.createClass({
-  displayName: 'App',
+var _react = require('react');
 
-  handleClick: function handleClick() {
-    ons.notification.alert('Hello world!');
-  },
-  render: function render() {
-    return React.createElement(
-      Ons.Page,
-      null,
-      React.createElement(
-        'p',
-        null,
-        'Hello World!'
-      ),
-      React.createElement(
-        Ons.Button,
-        { onClick: this.handleClick },
-        'Tap me!'
-      )
-    );
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _onsenui = require('onsenui');
+
+var _onsenui2 = _interopRequireDefault(_onsenui);
+
+var _reactOnsenui = require('react-onsenui');
+
+var _reactOnsenui2 = _interopRequireDefault(_reactOnsenui);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Hello = function (_React$Component) {
+  _inherits(Hello, _React$Component);
+
+  function Hello(props) {
+    _classCallCheck(this, Hello);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Hello).call(this, props));
   }
-});
-ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
+
+  _createClass(Hello, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        'Hello ',
+        this.props.name
+      );
+    }
+  }]);
+
+  return Hello;
+}(_react2.default.Component);
+
+_reactDom2.default.render(_react2.default.createElement(Hello, { name: 'React' }), document.getElementById("app"));
 
 },{"onsenui":2,"react":169,"react-dom":3,"react-onsenui":4}]},{},[170]);

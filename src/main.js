@@ -1,19 +1,16 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ons = require('onsenui');
-var Ons = require('react-onsenui');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ons from 'onsenui';
+import Ons from 'react-onsenui';
 
-var App = React.createClass({
-  handleClick: function() {
-    ons.notification.alert('Hello world!');
-  },
-  render: function() {
+class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
     return (
-      <Ons.Page>
-        <p>Hello World!</p>
-        <Ons.Button onClick={this.handleClick}>Tap me!</Ons.Button>
-      </Ons.Page>
+      <div className="container">Hello {this.props.name}</div>
     );
   }
-});
-ReactDOM.render(<App />, document.getElementById('app'));
+}
+ReactDOM.render(<Hello name="React" />, document.getElementById("app"));
