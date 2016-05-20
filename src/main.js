@@ -1,16 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ons from 'onsenui';
-import Ons from 'react-onsenui';
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ons = require('onsenui');
+var Ons = require('react-onsenui');
 
-class Hello extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+var MyPage = React.createClass({
+  renderToolbar: function() {
     return (
-      <div className="container">Hello {this.props.name}</div>
+      <Ons.Toolbar>
+        <div className='center'>Page</div>
+      </Ons.Toolbar>
+    );
+  },
+
+  render: function() {
+    return (
+      <Ons.Page renderToolbar={this.renderToolbar}>
+        <section style={{margin: '16px'}}>
+          This is a page
+        </section>
+      </Ons.Page>
     );
   }
-}
-ReactDOM.render(<Hello name="React" />, document.getElementById("app"));
+});
+
+ons.ready(function() {
+  ReactDOM.render(<MyPage />, document.getElementById('app'));
+});
