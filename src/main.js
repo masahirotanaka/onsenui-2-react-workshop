@@ -1,24 +1,19 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var ons = require('onsenui');
+var Ons = require('react-onsenui');
 
-var Counter = React.createClass({
-  getInitialState() {
-    return {
-      counter: 0
-    };
+var App = React.createClass({
+  handleClick: function() {
+    ons.notification.alert('Hello world!');
   },
-  onClick() {
-    var newState = { counter: this.state.counter + 1};
-    this.setState(newState);
-  },
-  render() {
+  render: function() {
     return (
-      <div>
-        <span>{this.state.counter}</span>
-        <button onClick={this.onClick}>click</button>
-      </div>
+      <Ons.Page>
+        <p>Hello World!</p>
+        <Ons.Button onClick={this.handleClick}>Tap me!</Ons.Button>
+      </Ons.Page>
     );
   }
 });
-
-ReactDOM.render(<Counter />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById('app'));
